@@ -8,6 +8,11 @@ namespace FORM;
 class FormRepository
 {
     /**
+     * @var Doctrine\ORM\EntityManager
+     */
+    private $_em;
+    
+    /**
      * @var string
      */
     protected $_className;
@@ -43,4 +48,14 @@ class FormRepository
      * @param string $propertyName
      */
     public function getElement($propertyName){}
+
+    /**
+     * @param Doctrine\ORM\EntityManager $em
+     * @return FormRepository
+     */
+    public function setEntityRepository($em)
+    {
+        $this->_em = $em;
+        return $this;
+    }
 }

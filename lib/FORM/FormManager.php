@@ -45,8 +45,10 @@ class FormManager
     public function getRepository($modelName)
     {
         if (isset($this->_repositories[$modelName])) {
-            return $this->_repositories[$modelName];
+            $this->_repositories[$modelName] = new FormRepository($this, $modelName);
+            $this->_repositories[$modelName]->setEntityManager($this->getEntityManager());
         }
+        return $this->_repositories[$modelName];
     }
 
     /**
