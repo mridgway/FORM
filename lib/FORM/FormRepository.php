@@ -53,9 +53,17 @@ class FormRepository
      * @param Doctrine\ORM\EntityManager $em
      * @return FormRepository
      */
-    public function setEntityRepository($em)
+    public function setEntityManager($em)
     {
         $this->_em = $em;
         return $this;
+    }
+
+    /**
+     * @return Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->_em;
     }
 }

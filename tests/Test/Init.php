@@ -16,6 +16,9 @@ $classLoader->register();
 $classLoader = new \Doctrine\Common\ClassLoader('FORM', __DIR__ . "/../../lib");
 $classLoader->register();
 
+$classLoader = new \Doctrine\Common\ClassLoader('Doctrine\Tests', __DIR__ . "/../../vendor/Doctrine2/tests");
+$classLoader->register();
+
 $classLoader = new \Doctrine\Common\ClassLoader('Doctrine', __DIR__ . "/../../vendor/Doctrine2/lib");
 $classLoader->register();
 

@@ -32,8 +32,9 @@ class FormManager
     /**
      * @param Configuration $config
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em, Configuration $config)
+    public function __construct(\Doctrine\ORM\EntityManager $em, Configuration $config = null)
     {
+        $this->_em = $em;
         $this->_config = $config;
     }
 
@@ -44,7 +45,7 @@ class FormManager
      */
     public function getRepository($modelName)
     {
-        if (isset($this->_repositories[$modelName])) {
+        if (!isset($this->_repositories[$modelName])) {
             $this->_repositories[$modelName] = new FormRepository($this, $modelName);
             $this->_repositories[$modelName]->setEntityManager($this->getEntityManager());
         }

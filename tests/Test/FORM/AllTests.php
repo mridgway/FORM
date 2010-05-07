@@ -1,9 +1,9 @@
 <?php
 
-namespace Test\Functional;
+namespace Test\FORM;
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Functional_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'FORM_AllTests::main');
 }
 
 require_once __DIR__ . '/../Init.php';
