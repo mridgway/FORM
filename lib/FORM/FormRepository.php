@@ -7,11 +7,7 @@ namespace FORM;
  */
 class FormRepository
 {
-    /**
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $_em;
-    
+
     /**
      * @var string
      */
@@ -23,15 +19,21 @@ class FormRepository
     protected $_formManager;
 
     /**
+     * @var Mapping\ClassMetadata
+     */
+    protected $_metadata;
+
+    /**
      * Creates a repository for the given class
      *
      * @param FormManager $formManager
-     * @param string $class This should be some kind of metadata object
+     * @param Mapping\ClassMetadata $class This should be some kind of metadata object
      */
-    public function __construct(FormManager $formManager, $class)
+    public function __construct(FormManager $formManager, Mapping\ClassMetadata $metadata)
     {
+        $this->_className = $metadata->name;
         $this->_formManager = $formManager;
-        $this->_className = $class;
+        $this->_metadata = $metadata;
     }
 
     /**
@@ -62,7 +64,7 @@ class FormRepository
      */
     public function getRepository()
     {
-        return $this->_em->getRepository($this->getClassName());
+        return $this->_formManager->getEntityManager()->getRepository($this->getClassName());
     }
 
     /**
@@ -71,23 +73,5 @@ class FormRepository
     public function getClassName()
     {
         return $this->_className;
-    }
-
-    /**
-     * @param Doctrine\ORM\EntityManager $em
-     * @return FormRepository
-     */
-    public function setEntityManager(\Doctrine\ORM\EntityManager $em)
-    {
-        $this->_em = $em;
-        return $this;
-    }
-
-    /**
-     * @return Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager()
-    {
-        return $this->_em;
     }
 }

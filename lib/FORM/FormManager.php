@@ -36,6 +36,7 @@ class FormManager
     {
         $this->_em = $em;
         $this->_config = $config;
+        $this->_metadataFactory = new Mapping\MetadataFactory($this);
     }
 
     /**
@@ -45,11 +46,24 @@ class FormManager
      */
     public function getRepository($modelName)
     {
-        if (!isset($this->_repositories[$modelName])) {
-            $this->_repositories[$modelName] = new FormRepository($this, $modelName);
-            $this->_repositories[$modelName]->setEntityManager($this->getEntityManager());
+        if (isset($this->_repositories[$modelName])) {
+            return $this->_repositories[$modelName];
         }
+
+        $metadata = $this->getClassMetadata($modelName);
+        
+        $this->_repositories[$modelName] = new FormRepository($this, $metadata);
+        
         return $this->_repositories[$modelName];
+    }
+
+    /**
+     * @param string $modelName
+     * @return Mapping\ClassMetadata
+     */
+    public function getClassMetadata($modelName)
+    {
+        return $this->_metadataFactory->getMetadataFor($modelName);
     }
 
     /**
