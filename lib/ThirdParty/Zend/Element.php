@@ -1,6 +1,6 @@
 <?php
 
-namespace FORM\Zend;
+namespace FORM\Zend\ThirdParty;
 
 class Element extends Element\AbstractElement
 {

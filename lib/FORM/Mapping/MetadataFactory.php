@@ -2,7 +2,7 @@
 
 namespace FORM\Mapping;
 
-class FormMetadataFactory
+class MetadataFactory
 {
     /**
      * @var FORM\FormManager
@@ -32,7 +32,7 @@ class FormMetadataFactory
      * Retrieves form metadata for a given class
      *
      * @param string $className
-     * @return FormMetadata
+     * @return FormMetadataInfo
      */
     public function getFormMetadataFor($className)
     {
@@ -40,6 +40,23 @@ class FormMetadataFactory
             $metadata = new FormMetadata($className);
             $this->_driver->loadFormMetadataForClass($className, $metadata);
             $this->_loadedMetadata[$className] = $metadata;
+        }
+        return $this->_loadedMetadata[$className];
+    }
+
+    /**
+     * Retrieves form metadata for a given field
+     *
+     * @param string $className
+     * @return FieldMetadataInfo
+     */
+    public function getFieldMetadataFor($className, $fieldName)
+    {
+        $classFields = $this->getFormMetadataFor($className)->getFields();
+        if (!array_key_exists($fieldName, $classFields)) {
+            $metadata = new FieldMetadata($fieldName);
+            $this->_driver->loadFieldMetadataForClass($className, $fieldName, $metadata);
+            $this->getFormMetadataFor($className)->addField($metadata);
         }
         return $this->_loadedMetadata[$className];
     }

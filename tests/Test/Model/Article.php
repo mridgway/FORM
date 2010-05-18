@@ -9,7 +9,6 @@ namespace Test\Model;
  */
 class Article extends AbstractModel
 {
-
     /**
      * @var integer
      * @Id @Column(type="integer", name="article_id")
@@ -20,33 +19,38 @@ class Article extends AbstractModel
     /**
      * @var string
      * @Column(type="string", name="slug", nullable="false", length="255", unique="true")
-     * @Element(type="text", name="slug", required="false")
+     * @Element(type="text", name="slug", required="false", minLength="5")
      */
     protected $slug;
 
     /**
      * @var string
      * @Column(type="string", name="title", nullable="false", length="255")
+     * @Element(type="text", name="title", required="true", minLength="5", maxLength="255")
      */
     protected $title;
 
     /**
      * @var string
      * @Column(type="text", name="content", nullable="false")
+     * @Element(type="textarea", name="content", required="true")
      */
     protected $content;
 
     /**
      * @var DateTime
      * @Column(type="datetime", name="date", nullable="false")
+     * @Element(type="date", name="date")
      */
     protected $date;
 
     /**
      * @var boolean
      * @Column(type="boolean", name="published", nullable="false")
+     * @Element(type="checkbox", name="published")
      */
     protected $published;
+
 
     /**
      * @param string $title

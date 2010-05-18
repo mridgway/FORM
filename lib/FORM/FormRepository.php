@@ -31,7 +31,7 @@ class FormRepository
      */
     public function __construct(FormManager $formManager, Mapping\FormMetadata $metadata)
     {
-        $this->_className = $metadata->name;
+        $this->_className = $metadata->getName();
         $this->_formManager = $formManager;
         $this->_metadata = $metadata;
     }

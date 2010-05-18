@@ -4,7 +4,6 @@ namespace FORM\Mapping;
 
 class FormMetadata extends FormMetadataInfo
 {
-
     /**
      * @param string $className
      */

@@ -16,7 +16,7 @@ class FormManager
     private $_config;
 
     /**
-     * @var Mapping\FormMetadataFactory
+     * @var Mapping\MetadataFactory
      */
     private $_metadataFactory;
 
@@ -31,7 +31,7 @@ class FormManager
     public function __construct(Configuration $config = null)
     {
         $this->_config = $config;
-        $this->_metadataFactory = new Mapping\FormMetadataFactory($this);
+        $this->_metadataFactory = new Mapping\MetadataFactory($this);
     }
 
     /**
