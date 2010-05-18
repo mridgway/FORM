@@ -9,10 +9,6 @@ namespace FORM;
  */
 class FormManager
 {
-    /**
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $_em;
 
     /**
      * @var Configuration
@@ -20,7 +16,7 @@ class FormManager
     private $_config;
 
     /**
-     * @var Mapping\MetadataFactory
+     * @var Mapping\FormMetadataFactory
      */
     private $_metadataFactory;
 
@@ -32,11 +28,10 @@ class FormManager
     /**
      * @param Configuration $config
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em, Configuration $config = null)
+    public function __construct(Configuration $config = null)
     {
-        $this->_em = $em;
         $this->_config = $config;
-        $this->_metadataFactory = new Mapping\MetadataFactory($this);
+        $this->_metadataFactory = new Mapping\FormMetadataFactory($this);
     }
 
     /**
@@ -50,7 +45,7 @@ class FormManager
             return $this->_repositories[$modelName];
         }
 
-        $metadata = $this->getClassMetadata($modelName);
+        $metadata = $this->getFormMetadata($modelName);
         
         $this->_repositories[$modelName] = new FormRepository($this, $metadata);
         
@@ -59,19 +54,11 @@ class FormManager
 
     /**
      * @param string $modelName
-     * @return Mapping\ClassMetadata
+     * @return Mapping\FormMetadata
      */
-    public function getClassMetadata($modelName)
+    public function getFormMetadata($modelName)
     {
-        return $this->_metadataFactory->getMetadataFor($modelName);
-    }
-
-    /**
-     * @return Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager()
-    {
-        return $this->_em;
+        return $this->_metadataFactory->getFormMetadataFor($modelName);
     }
 
     /**

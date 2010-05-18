@@ -7,7 +7,7 @@ namespace Test\Model;
  * @Table(name="Article")
  * @Form(repositoryClass="Blog\Form\Repository\Article")
  */
-class Article extends \Core\Model\AbstractModel
+class Article extends AbstractModel
 {
 
     /**

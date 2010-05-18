@@ -2,7 +2,7 @@
 
 namespace FORM\Mapping;
 
-class FormMetadata extends ClassMetadataInfo
+class FormMetadata extends FormMetadataInfo
 {
 
     /**

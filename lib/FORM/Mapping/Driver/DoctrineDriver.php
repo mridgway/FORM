@@ -25,5 +25,7 @@ class DoctrineDriver implements Driver
     public function loadFormMetadataForClass($className, \FORM\Mapping\FormMetadataInfo $metadata)
     {
         $doctrineMetadata = $this->_em->getClassMetadata($className);
+
+        return $metadata;
     }
 }

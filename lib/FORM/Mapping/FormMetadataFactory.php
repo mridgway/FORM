@@ -25,14 +25,22 @@ class FormMetadataFactory
     public function __construct(\FORM\FormManager $fm)
     {
         $this->_fm = $fm;
+        $this->_driver = $fm->getConfiguration()->getMetadataDriverImpl();
     }
 
+    /**
+     * Retrieves form metadata for a given class
+     *
+     * @param string $className
+     * @return FormMetadata
+     */
     public function getFormMetadataFor($className)
     {
         if (!isset($this->_loadedMetadata[$className])) {
             $metadata = new FormMetadata($className);
             $this->_driver->loadFormMetadataForClass($className, $metadata);
+            $this->_loadedMetadata[$className] = $metadata;
         }
-        return $This->_loadedMetadata[$className];
+        return $this->_loadedMetadata[$className];
     }
 }

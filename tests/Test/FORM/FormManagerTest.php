@@ -19,19 +19,18 @@ class FormManagerTest extends \Test\FORMTestCase
         parent::setUp();
         $this->_em = $this->_getTestEntityManager();
         $this->_config = new \FORM\Configuration();
-        $this->_fm = new \FORM\FormManager($this->_em, $this->_config);
+        $this->_config->setMetadataDriverImpl(new \FORM\Mapping\Driver\DoctrineDriver($this->_em));
+        $this->_fm = new \FORM\FormManager($this->_config);
     }
 
     public function testConstructor()
     {
-        $this->assertEquals($this->_em, $this->_fm->getEntityManager());
         $this->assertEquals($this->_config, $this->_fm->getConfiguration());
     }
 
     public function testGetRepository()
     {
-        $repository = $this->_fm->getRepository('Test');
+        $repository = $this->_fm->getRepository('Test\Model\Article');
         $this->assertEquals('FORM\FormRepository', get_class($repository));
-        $this->assertEquals($this->_em, $repository->getEntityManager());
     }
 }

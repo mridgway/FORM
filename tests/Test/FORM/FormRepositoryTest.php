@@ -22,13 +22,13 @@ class FormRepositoryTest extends \Test\FORMTestCase
         parent::setUp();
         $this->_em = $this->_getTestEntityManager();
         $this->_config = new \FORM\Configuration();
-        $this->_fm = new \FORM\FormManager($this->_em, $this->_config);
+        $this->_config->setMetadataDriverImpl(new \FORM\Mapping\Driver\DoctrineDriver($this->_em));
+        $this->_fm = new \FORM\FormManager($this->_config);
         
-        $this->_formRepository = new \FORM\FormRepository($this->_fm, 'Test');
+        $this->_formRepository = new \FORM\FormRepository($this->_fm, $this->_fm->getFormMetadata('Test\Model\Article'));
     }
 
     public function testConstructor()
     {
-        $this->assertEquals($this->_em, $this->_formRepository->getEntityManager());
     }
 }

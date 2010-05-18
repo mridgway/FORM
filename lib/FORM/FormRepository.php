@@ -29,7 +29,7 @@ class FormRepository
      * @param FormManager $formManager
      * @param Mapping\ClassMetadata $class This should be some kind of metadata object
      */
-    public function __construct(FormManager $formManager, Mapping\ClassMetadata $metadata)
+    public function __construct(FormManager $formManager, Mapping\FormMetadata $metadata)
     {
         $this->_className = $metadata->name;
         $this->_formManager = $formManager;
@@ -51,20 +51,6 @@ class FormRepository
      */
     public function getElement($propertyName)
     {
-        $doctrineMetadata = $this->_em->getClassMetadata($this->getClassName());
-        if (!$doctrineMetadata->hasField($propertyName)) {
-            throw new \Exception('Invalid property name specified for this class.');
-        }
-
-        $propertyType = $doctrineMetadata->getTypeOfField($propertyName);
-    }
-
-    /**
-     * @return EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->_formManager->getEntityManager()->getRepository($this->getClassName());
     }
 
     /**
