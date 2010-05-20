@@ -1,6 +1,6 @@
 <?php
 
-namespace FORM\ThirdParty\Zend;
+namespace FORM\Extension\Zend;
 
 class ElementFactory extends \FORM\Element\ElementFactoryInterface
 {
