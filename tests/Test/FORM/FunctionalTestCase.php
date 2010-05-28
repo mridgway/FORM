@@ -1,7 +1,8 @@
 <?php
 
-namespace Test;
+namespace Test\FORM;
 
 class FunctionalTestCase extends \Test\FORMTestCase
 {
+
 }

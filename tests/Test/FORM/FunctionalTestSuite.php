@@ -1,6 +1,6 @@
 <?php
 
-namespace Test;
+namespace Test\FORM;
 
 class FunctionalTestSuite extends \Test\FORMTestSuite
 {

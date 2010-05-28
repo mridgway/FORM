@@ -39,6 +39,14 @@ class MetadataFactory
         if (!isset($this->_loadedMetadata[$className])) {
             $metadata = new FormMetadata($className);
             $this->_driver->loadFormMetadataForClass($className, $metadata);
+            foreach($metadata->getFields() AS $fieldName => $data) {
+                if (null === $data) {
+                    $fieldMetadata = new FieldMetadata($fieldName);
+                    $this->_driver->loadFieldMetadataForClass($className, $fieldName, $fieldMetadata);
+                    $metadata->removeField($fieldName);
+                    $metadata->addField($fieldMetadata);
+                }
+            }
             $this->_loadedMetadata[$className] = $metadata;
         }
         return $this->_loadedMetadata[$className];
@@ -58,6 +66,14 @@ class MetadataFactory
             $this->_driver->loadFieldMetadataForClass($className, $fieldName, $metadata);
             $this->getFormMetadataFor($className)->addField($metadata);
         }
-        return $this->_loadedMetadata[$className];
+        return $this->_loadedMetadata[$className]->getField($fieldName);
+    }
+
+    /**
+     * @return FORM\FormManager
+     */
+    public function getFormManager()
+    {
+        return $this->_fm;
     }
 }

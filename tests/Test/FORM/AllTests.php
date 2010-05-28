@@ -17,7 +17,14 @@ class AllTests
 
     public static function suite()
     {
-        $suite = new \Test\FORMTestSuite('FORM Functional Tests');
+        $suite = new \Test\FORMTestSuite('FORM Tests');
+
+        $suite->addTestSuite(Functional\AllTests::suite());
+        $suite->addTestSuite(Mapping\AllTests::suite());
+        
+        $suite->addTestSuite('Test\FORM\FormManagerTest');
+        $suite->addTestSuite('Test\FORM\FormRepositoryTest');
+        $suite->addTestSuite('Test\FORM\ConfigurationTest');
 
         return $suite;
     }

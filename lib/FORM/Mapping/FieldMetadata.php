@@ -2,7 +2,7 @@
 
 namespace FORM\Mapping;
 
-class FieldMetadata extends FormMetadataInfo
+class FieldMetadata extends FieldMetadataInfo
 {
     /**
      * @param string $fieldName

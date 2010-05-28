@@ -214,6 +214,17 @@ class FieldMetadataInfo
         return $this->_validators;
     }
 
+
+    /**
+     * @param string $validator
+     * @return FieldMetadataInfo
+     */
+    public function addValidator($validator)
+    {
+        $this->_validators[] = $validator;
+        return $this;
+    }
+
     /**
      * @param array $validators
      * @return FieldMetadataInfo
@@ -230,6 +241,16 @@ class FieldMetadataInfo
     public function getFilters()
     {
         return $this->_filters;
+    }
+
+    /**
+     * @param string $filter
+     * @return FieldMetadataInfo
+     */
+    public function addFilter($filter)
+    {
+        $this->_filters = $filter;
+        return $this;
     }
 
     /**

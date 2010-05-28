@@ -4,6 +4,67 @@ namespace Test;
 
 abstract class FORMTestCase extends \PHPUnit_Framework_TestCase
 {
+    private static $_metadataDriverImpl;
+
+    private static $_elementFactory;
+    private static $_formFactory;
+
+    /**
+     * @return FORM\FormManager
+     */
+    protected function _getTestFormManager($config = null)
+    {
+        if (null === $config || is_array($config)) {
+            $configArray = $config;
+            $config = new \FORM\Configuration();
+
+            if (!isset($configArray['driver'])) {
+                $em = $this->_getTestEntityManager();
+                $config->setMetadataDriverImpl(self::_getMetadataDriverImpl($this->_getTestEntityManager()));
+            } else {
+                $config->setMetadataDriverImpl($configArray['driver']);
+            }
+
+            if (!isset($configArray['elementFactory'])) {
+                $config->setElementFactory(self::_getElementFactory());
+            } else {
+                $config->setElementFactory($configArray['elementFactory']);
+            }
+
+            if (!isset($configArray['formFactory'])) {
+                $config->setFormFactory(self::_getFormFactory());
+            } else {
+                $config->setFormFactory($configArray['formFactory']);
+            }
+        }
+        return new \FORM\FormManager($config);
+    }
+
+    protected static function _getMetadataDriverImpl(\Doctrine\ORM\EntityManager $em)
+    {
+        if (null === self::$_metadataDriverImpl) {
+            self::$_metadataDriverImpl = new \FORM\Mapping\Driver\DoctrineDriver($em);
+        }
+        return self::$_metadataDriverImpl;
+    }
+
+    protected static function _getElementfactory()
+    {
+        if (null === self::$_elementFactory) {
+            self::$_elementFactory = new \FORM\Extension\Zend\ElementFactory();
+        }
+        return self::$_elementFactory;
+    }
+
+    protected static function _getFormfactory()
+    {
+        if (null === self::$_formFactory) {
+            self::$_formFactory = new \FORM\Extension\Zend\FormFactory();
+        }
+        return self::$_formFactory;
+    }
+
+
     /** The metadata cache that is shared between all ORM tests (except functional tests). */
     private static $_metadataCacheImpl = null;
     /** The query cache that is shared between all ORM tests (except functional tests). */

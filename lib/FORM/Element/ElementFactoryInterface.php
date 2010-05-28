@@ -10,5 +10,5 @@ interface ElementFactoryInterface
      * @param string $type
      * @param FieldMetadataInfo $metadata
      */
-    public function createElement($type, \FORM\Mapping\FieldMetadataInfo $metadata);
+    public function createElement($name, \FORM\Mapping\FieldMetadataInfo $metadata);
 }

@@ -15,7 +15,7 @@ class AllTests
     {
         $suite = new FORMTestSuite('FORM Tests');
 
-        $suite->addTest(Functional\AllTests::suite());
+        $suite->addTestSuite(FORM\AllTests::suite());
 
         return $suite;
     }

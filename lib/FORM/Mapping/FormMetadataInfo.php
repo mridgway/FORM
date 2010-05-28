@@ -58,10 +58,22 @@ class FormMetadataInfo
     }
 
     /**
-     * @param FieldMetadataInfo $fieldData
+     * @param FieldMetadataInfo|string $fieldData
      */
-    public function addField(FieldMetadataInfo $fieldData)
+    public function addField($fieldData)
     {
-        $this->_fields[$fieldData->getName()] = $fieldData;
+        if (is_string($fieldData)) {
+            $this->_fields[$fieldData] = null;
+        } else {
+            $this->_fields[$fieldData->getName()] = $fieldData;
+        }
+    }
+
+    /**
+     * @param string $fieldName
+     */
+    public function removeField($fieldName)
+    {
+        unset($this->_fields[$fieldName]);
     }
 }

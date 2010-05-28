@@ -21,6 +21,16 @@ class FormManager
     private $_metadataFactory;
 
     /**
+     * @var Element\ElementFactoryInterface
+     */
+    private $_elementFactory;
+
+    /**
+     * @var Form\FormFactoryInterface
+     */
+    private $_formFactory;
+
+    /**
      * @var array
      */
     private $_repositories = array();
@@ -32,12 +42,15 @@ class FormManager
     {
         $this->_config = $config;
         $this->_metadataFactory = new Mapping\MetadataFactory($this);
+        $this->_elementFactory = $config->getElementFactory();
+        $this->_formFactory = $config->getFormFactory();
     }
 
     /**
      * Gets the repository for the specified model type.
      *
      * @param string $modelName
+     * @return FormRepository
      */
     public function getRepository($modelName)
     {
@@ -67,5 +80,21 @@ class FormManager
     public function getConfiguration()
     {
         return $this->_config;
+    }
+
+    /**
+     * @return Element\ElementFactory
+     */
+    public function getElementFactory()
+    {
+        return $this->_elementFactory;
+    }
+
+    /**
+     * @return Form\FormFactory
+     */
+    public function getFormFactory()
+    {
+        return $this->_formFactory;
     }
 }

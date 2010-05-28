@@ -11,9 +11,14 @@ class Configuration
     protected $_metadataDriver;
 
     /**
-     * @var Element\AbstractElementFactory
+     * @var Element\ElementFactoryInterface
      */
     protected $_elementFactory;
+
+    /**
+     * @var Form\FormFactoryInterface
+     */
+    protected $_formFactory;
 
     /**
      * @param DriverInterface $impl
@@ -45,6 +50,22 @@ class Configuration
     public function getElementFactory()
     {
         return $this->_elementFactory;
+    }
+
+    /**
+     * @param Form\FormFactoryInterface $factory
+     */
+    public function setFormFactory(Form\FormFactoryInterface $factory)
+    {
+        $this->_formFactory = $factory;
+    }
+
+    /**
+     * @return Form\FormFactoryInterface
+     */
+    public function getFormFactory()
+    {
+        return $this->_formFactory;
     }
 
 }

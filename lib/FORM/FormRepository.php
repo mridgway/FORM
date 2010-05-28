@@ -16,10 +16,10 @@ class FormRepository
     /**
      * @var FormManager
      */
-    protected $_formManager;
+    protected $_fm;
 
     /**
-     * @var Mapping\ClassMetadata
+     * @var Mapping\FormMetadata
      */
     protected $_metadata;
 
@@ -32,17 +32,21 @@ class FormRepository
     public function __construct(FormManager $formManager, Mapping\FormMetadata $metadata)
     {
         $this->_className = $metadata->getName();
-        $this->_formManager = $formManager;
+        $this->_fm = $formManager;
         $this->_metadata = $metadata;
     }
 
     /**
      * Retrieves a form mediator object.
-     *
-     * @param string $modelName
-     * @return Mediator
      */
-    public function getForm(){}
+    public function getForm()
+    {
+        $form = $this->_fm->getFormFactory()->createForm($this->_metadata);
+        foreach ($this->_metadata->getFields() AS $field) {
+            $form->addElement($this->getElement($field->getName()));
+        }
+        return $form;
+    }
 
     /**
      * Retrieves a single mediator element from the current class type
@@ -51,6 +55,7 @@ class FormRepository
      */
     public function getElement($propertyName)
     {
+        return $this->_fm->getElementFactory()->createElement($propertyName, $this->_metadata->getField($propertyName));
     }
 
     /**
