@@ -18,13 +18,6 @@ class Article extends AbstractModel
 
     /**
      * @var string
-     * @Column(type="string", name="slug", nullable="false", length="255", unique="true")
-     * @Element(type="text", name="slug", required="false", minLength="5")
-     */
-    protected $slug;
-
-    /**
-     * @var string
      * @Column(type="string", name="title", nullable="false", length="255")
      * @Element(type="text", name="title", required="true", minLength="5", maxLength="255")
      */
@@ -61,7 +54,6 @@ class Article extends AbstractModel
     public function __construct($title, $content = '', $date = null, $published = false)
     {
         $this->setTitle($title);
-        $this->setSlug($this->slug($title));
         $this->setContent($content);
         $this->setDate($date);
         $this->setPublished($published);
@@ -98,36 +90,5 @@ class Article extends AbstractModel
     {
         $this->published = $published;
         return $this;
-    }
-
-    /**
-     * Returns abbreviated content text
-     *
-     * @return string
-     */
-    public function getShortContent()
-    {
-        return $this->getContent();
-    }
-
-    /**
-     * Returns the url to view the inidividual article
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        $d = $this->getDate();
-        return '/view/' . $this->getSlug() . '/';
-    }
-
-    /**
-     * @param string $value
-     * @return string
-     */
-    protected function slug($value)
-    {
-        $filter = new \Blog\Filter\Slug($this->getRepository(), 'findBySlug');
-        return $filter->filter(substr($value, 0, 255));
     }
 }

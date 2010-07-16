@@ -21,13 +21,24 @@ class SimpleElementTest extends \Test\FORM\FunctionalTestCase
     public function testRepositoryReturnsElement()
     {
         $repo = $this->_fm->getRepository('Test\Model\Article');
-        $this->assertTrue($repo->getElement('title') instanceof \Zend_Form_Element);
+        $element = $repo->getElement('title');
+        $this->assertTrue($element instanceof \Zend_Form_Element);
+    }
+
+    public function testRepositoryValidators()
+    {
+        $repo = $this->_fm->getRepository('Test\Model\Article');
+        $element = $repo->getElement('title');
+
+        $stringLengthValidator = $element->getValidator('StringLength');
+        $this->assertEquals(255, $stringLengthValidator->getMax());
     }
 
     public function testRepositoryReturnsForm()
     {
         $repo = $this->_fm->getRepository('Test\Model\Article');
-        $this->assertTrue($repo->getForm() instanceof \Zend_Form);
+        $form = $repo->getForm();
+        $this->assertTrue($form instanceof \Zend_Form);
     }
     
 }
